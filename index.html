@@ -6549,7 +6549,7 @@ var $author$project$Main$update = F2(
 												m: config,
 												aQ: $author$project$Model$PostIds$first(ids),
 												a6: ids,
-												C: _List_Nil,
+												z: _List_Nil,
 												O: time
 											}),
 										A2(
@@ -6583,20 +6583,20 @@ var $author$project$Main$update = F2(
 									var _v6 = _v5.a;
 									var nextId = _v6.a;
 									var nextPostIds = _v6.b;
-									var posts = A2($elm$core$List$cons, post, loading.C);
+									var posts = A2($elm$core$List$cons, post, loading.z);
 									return (_Utils_cmp(
 										$elm$core$List$length(posts),
 										loading.m.dc) < 0) ? _Utils_Tuple2(
 										$author$project$Model$LoadingPosts(
 											_Utils_update(
 												loading,
-												{aQ: nextId, a6: nextPostIds, C: posts})),
+												{aQ: nextId, a6: nextPostIds, z: posts})),
 										A2($author$project$Main$getPost, model.m.bn, nextId)) : _Utils_Tuple2(
 										$author$project$Model$LoadedPosts(
 											{
 												m: loading.m,
-												C: $elm$core$List$reverse(
-													A2($elm$core$List$cons, post, loading.C)),
+												z: $elm$core$List$reverse(
+													A2($elm$core$List$cons, post, loading.z)),
 												O: loading.O
 											}),
 										$author$project$Effect$NoEffect);
@@ -6605,8 +6605,8 @@ var $author$project$Main$update = F2(
 										$author$project$Model$LoadedPosts(
 											{
 												m: loading.m,
-												C: $elm$core$List$reverse(
-													A2($elm$core$List$cons, post, loading.C)),
+												z: $elm$core$List$reverse(
+													A2($elm$core$List$cons, post, loading.z)),
 												O: loading.O
 											}),
 										$author$project$Effect$NoEffect);
@@ -7533,6 +7533,8 @@ var $author$project$View$Posts$postsConfigView = function (config) {
 				$author$project$View$Posts$showTextOnlyInput(config)
 			]));
 };
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $author$project$Main$view = function (model) {
 	var title = (!model.m.a1) ? 'HackerNews (DEV)' : 'HackerNews';
 	var body = function () {
@@ -7557,7 +7559,7 @@ var $author$project$Main$view = function (model) {
 			case 3:
 				var config = _v0.a.m;
 				var time = _v0.a.O;
-				var posts = _v0.a.C;
+				var posts = _v0.a.z;
 				return A2(
 					$elm$html$Html$div,
 					_List_Nil,
@@ -7576,13 +7578,27 @@ var $author$project$Main$view = function (model) {
 						]));
 			case 2:
 				var currentId = _v0.a.aQ;
+				var posts = _v0.a.z;
 				return A2(
 					$elm$html$Html$div,
 					_List_Nil,
 					_List_fromArray(
 						[
 							$elm$html$Html$text(
-							'Loading post ' + $elm$core$String$fromInt(currentId))
+							'Fetching post ' + ($elm$core$String$fromInt(
+								$elm$core$List$length(posts) + 1) + '/50')),
+							A2(
+							$elm$html$Html$div,
+							_List_fromArray(
+								[
+									A2($elm$html$Html$Attributes$style, 'font-size', '0.8em'),
+									A2($elm$html$Html$Attributes$style, 'color', '#888')
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text(
+									'(ID: ' + ($elm$core$String$fromInt(currentId) + ')'))
+								]))
 						]));
 			default:
 				return A2(
