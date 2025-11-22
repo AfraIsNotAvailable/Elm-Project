@@ -4359,7 +4359,10 @@ var $elm$core$Set$toList = function (_v0) {
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
-var $author$project$Test$Reporter$Reporter$JsonReport = {$: 'JsonReport'};
+var $author$project$Test$Reporter$Reporter$ConsoleReport = function (a) {
+	return {$: 'ConsoleReport', a: a};
+};
+var $author$project$Console$Text$UseColor = {$: 'UseColor'};
 var $elm$core$Maybe$Just = function (a) {
 	return {$: 'Just', a: a};
 };
@@ -8600,6 +8603,7 @@ var $author$project$Main$update = F2(
 				{state: newState}),
 			cmd);
 	});
+var $author$project$Main$customCss = '\r\n    body {\r\n        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;\r\n        background-color: #f6f6ef;\r\n        color: #333;\r\n        margin: 0;\r\n        padding: 20px;\r\n    }\r\n\r\n    h1 {\r\n        color: #ff6600; /* HN Orange */\r\n        font-weight: 700;\r\n        letter-spacing: -1px;\r\n    }\r\n\r\n    /* Table Styling */\r\n    table {\r\n        width: 100%;\r\n        border-collapse: collapse;\r\n        background: white;\r\n        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);\r\n        border-radius: 8px;\r\n        overflow: hidden;\r\n        margin-top: 20px;\r\n    }\r\n\r\n    th {\r\n        background-color: #333;\r\n        color: white;\r\n        font-weight: 600;\r\n        text-transform: uppercase;\r\n        font-size: 0.85rem;\r\n        padding: 15px;\r\n        text-align: left;\r\n    }\r\n\r\n    td {\r\n        padding: 12px 15px;\r\n        border-bottom: 1px solid #eee;\r\n        font-size: 0.95rem;\r\n    }\r\n\r\n    tr:hover {\r\n        background-color: #f9f9f9;\r\n    }\r\n\r\n    /* Specific Column Styling */\r\n    .post-score {\r\n        font-weight: bold;\r\n        color: #ff6600;\r\n        text-align: center;\r\n        width: 60px;\r\n    }\r\n\r\n    .post-title {\r\n        font-weight: 500;\r\n        color: #222;\r\n    }\r\n\r\n    .post-url a {\r\n        color: #828282;\r\n        text-decoration: none;\r\n        font-size: 0.85rem;\r\n    }\r\n\r\n    .post-url a:hover {\r\n        text-decoration: underline;\r\n        color: #ff6600;\r\n    }\r\n\r\n    .post-time {\r\n        color: #888;\r\n        font-size: 0.85rem;\r\n        white-space: nowrap;\r\n    }\r\n\r\n    .post-type {\r\n        text-transform: capitalize;\r\n        font-size: 0.85rem;\r\n        color: #666;\r\n        background: #eee;\r\n        padding: 4px 8px;\r\n        border-radius: 4px;\r\n        text-align: center;\r\n    }\r\n\r\n    /* Config Section Styling */\r\n    #select-posts-per-page, #select-sort-by {\r\n        padding: 8px;\r\n        border: 1px solid #ddd;\r\n        border-radius: 4px;\r\n        margin-right: 10px;\r\n        background: white;\r\n    }\r\n\r\n    input[type="checkbox"] {\r\n        accent-color: #ff6600;\r\n        margin-right: 8px;\r\n    }\r\n\r\n    /* Helper to align the config bar */\r\n    div > div:first-child {\r\n        display: flex;\r\n        align-items: center;\r\n        gap: 20px;\r\n        background: white;\r\n        padding: 15px;\r\n        border-radius: 8px;\r\n        box-shadow: 0 2px 4px rgba(0,0,0,0.05);\r\n        margin-bottom: 20px;\r\n    }\r\n    ';
 var $elm$json$Json$Decode$map2 = _Json_map2;
 var $elm$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 	switch (handler.$) {
@@ -8615,6 +8619,11 @@ var $elm$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 };
 var $elm$html$Html$div = _VirtualDom_node('div');
 var $elm$html$Html$h1 = _VirtualDom_node('h1');
+var $elm$virtual_dom$VirtualDom$node = function (tag) {
+	return _VirtualDom_node(
+		_VirtualDom_noScript(tag));
+};
+var $elm$html$Html$node = $elm$virtual_dom$VirtualDom$node;
 var $elm$core$List$filter = F2(
 	function (isGood, list) {
 		return A3(
@@ -9374,8 +9383,6 @@ var $author$project$View$Posts$postsConfigView = function (config) {
 				$author$project$View$Posts$showTextOnlyInput(config)
 			]));
 };
-var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
-var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $author$project$Main$view = function (model) {
 	var title = _Utils_eq(model.config.mode, $author$project$Model$Dev) ? 'HackerNews (DEV)' : 'HackerNews';
 	var body = function () {
@@ -9419,27 +9426,13 @@ var $author$project$Main$view = function (model) {
 						]));
 			case 'LoadingPosts':
 				var currentId = _v0.a.currentId;
-				var posts = _v0.a.posts;
 				return A2(
 					$elm$html$Html$div,
 					_List_Nil,
 					_List_fromArray(
 						[
 							$elm$html$Html$text(
-							'Fetching post ' + ($elm$core$String$fromInt(
-								$elm$core$List$length(posts) + 1) + '/50')),
-							A2(
-							$elm$html$Html$div,
-							_List_fromArray(
-								[
-									A2($elm$html$Html$Attributes$style, 'font-size', '0.8em'),
-									A2($elm$html$Html$Attributes$style, 'color', '#888')
-								]),
-							_List_fromArray(
-								[
-									$elm$html$Html$text(
-									'(ID: ' + ($elm$core$String$fromInt(currentId) + ')'))
-								]))
+							'Loading post ' + $elm$core$String$fromInt(currentId))
 						]));
 			default:
 				return A2(
@@ -9456,6 +9449,14 @@ var $author$project$Main$view = function (model) {
 		_List_Nil,
 		_List_fromArray(
 			[
+				A3(
+				$elm$html$Html$node,
+				'style',
+				_List_Nil,
+				_List_fromArray(
+					[
+						$elm$html$Html$text($author$project$Main$customCss)
+					])),
 				A2(
 				$elm$html$Html$h1,
 				_List_Nil,
@@ -25075,9 +25076,9 @@ var $author$project$Test$Generated$Main$main = A2(
 		paths: _List_fromArray(
 			['/home/afra/utcn/anul3/pf/Elm-Project/tests/ExampleTests/CursorTests.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/ExampleTests/ModelPostIdsTests.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/ExampleTests/ModelPostsConfigTests.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/ExampleTests/UtilTimeTests.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/MainTests.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/PostTests.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/PostsConfigTests.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/PostsViewTests.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/SimulatedEffect.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/TestData.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/TestUtils.elm']),
 		processes: 12,
-		report: $author$project$Test$Reporter$Reporter$JsonReport,
+		report: $author$project$Test$Reporter$Reporter$ConsoleReport($author$project$Console$Text$UseColor),
 		runs: 100,
-		seed: 376158560164992
+		seed: 209097085710474
 	},
 	_List_fromArray(
 		[
@@ -25159,7 +25160,7 @@ var $author$project$Test$Generated$Main$main = A2(
 _Platform_export({'Test':{'Generated':{'Main':{'init':$author$project$Test$Generated$Main$main($elm$json$Json$Decode$int)(0)}}}});}(this));
 return this.Elm;
 })({});
-var pipeFilename = "/tmp/elm_test-608810.sock";
+var pipeFilename = "/tmp/elm_test-619142.sock";
 var net = require('net'),
   client = net.createConnection(pipeFilename);
 
