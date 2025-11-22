@@ -188,15 +188,15 @@ view model =
                 Model.Loading _ ->
                     div [] [ text "Loading stories" ]
 
-                Model.LoadingPosts { currentId } ->
-                    div [] [ text <| "Loading post " ++ String.fromInt currentId ]
+                -- Model.LoadingPosts { currentId } ->
+                --     div [] [ text <| "Loading post " ++ String.fromInt currentId ]
+                Model.LoadingPosts { currentId, posts } ->
+                    div []
+                        [ text <| "Fetching post " ++ String.fromInt (List.length posts + 1) ++ "/50"
+                        , div [ style "font-size" "0.8em", style "color" "#888" ]
+                            [ text <| "(ID: " ++ String.fromInt currentId ++ ")" ]
+                        ]
 
-                -- Model.LoadingPosts { currentId, posts } ->
-                --     div []
-                --         [ text <| "Fetching post " ++ String.fromInt (List.length posts + 1) ++ "/50"
-                --         , div [ style "font-size" "0.8em", style "color" "#888" ]
-                --             [ text <| "(ID: " ++ String.fromInt currentId ++ ")" ]
-                --         ]
                 _ ->
                     div [] [ text "Other" ]
     in
