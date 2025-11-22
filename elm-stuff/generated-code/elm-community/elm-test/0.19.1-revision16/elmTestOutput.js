@@ -4359,10 +4359,7 @@ var $elm$core$Set$toList = function (_v0) {
 var $elm$core$Basics$EQ = {$: 'EQ'};
 var $elm$core$Basics$GT = {$: 'GT'};
 var $elm$core$Basics$LT = {$: 'LT'};
-var $author$project$Test$Reporter$Reporter$ConsoleReport = function (a) {
-	return {$: 'ConsoleReport', a: a};
-};
-var $author$project$Console$Text$UseColor = {$: 'UseColor'};
+var $author$project$Test$Reporter$Reporter$JsonReport = {$: 'JsonReport'};
 var $elm$core$Maybe$Just = function (a) {
 	return {$: 'Just', a: a};
 };
@@ -8660,11 +8657,11 @@ var $elm$core$List$sortWith = _List_sortWith;
 var $author$project$Model$PostsConfig$filterPosts = F2(
 	function (config, posts) {
 		return A2(
-			$elm$core$List$take,
-			config.postsToShow,
+			$elm$core$List$sortWith,
+			$author$project$Model$PostsConfig$sortToCompareFn(config.sortBy),
 			A2(
-				$elm$core$List$sortWith,
-				$author$project$Model$PostsConfig$sortToCompareFn(config.sortBy),
+				$elm$core$List$take,
+				config.postsToShow,
 				A2(
 					$elm$core$List$filter,
 					function (post) {
@@ -9377,6 +9374,8 @@ var $author$project$View$Posts$postsConfigView = function (config) {
 				$author$project$View$Posts$showTextOnlyInput(config)
 			]));
 };
+var $elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
+var $elm$html$Html$Attributes$style = $elm$virtual_dom$VirtualDom$style;
 var $author$project$Main$view = function (model) {
 	var title = _Utils_eq(model.config.mode, $author$project$Model$Dev) ? 'HackerNews (DEV)' : 'HackerNews';
 	var body = function () {
@@ -9420,13 +9419,27 @@ var $author$project$Main$view = function (model) {
 						]));
 			case 'LoadingPosts':
 				var currentId = _v0.a.currentId;
+				var posts = _v0.a.posts;
 				return A2(
 					$elm$html$Html$div,
 					_List_Nil,
 					_List_fromArray(
 						[
 							$elm$html$Html$text(
-							'Loading post ' + $elm$core$String$fromInt(currentId))
+							'Fetching post ' + ($elm$core$String$fromInt(
+								$elm$core$List$length(posts) + 1) + '/50')),
+							A2(
+							$elm$html$Html$div,
+							_List_fromArray(
+								[
+									A2($elm$html$Html$Attributes$style, 'font-size', '0.8em'),
+									A2($elm$html$Html$Attributes$style, 'color', '#888')
+								]),
+							_List_fromArray(
+								[
+									$elm$html$Html$text(
+									'(ID: ' + ($elm$core$String$fromInt(currentId) + ')'))
+								]))
 						]));
 			default:
 				return A2(
@@ -25062,9 +25075,9 @@ var $author$project$Test$Generated$Main$main = A2(
 		paths: _List_fromArray(
 			['/home/afra/utcn/anul3/pf/Elm-Project/tests/ExampleTests/CursorTests.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/ExampleTests/ModelPostIdsTests.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/ExampleTests/ModelPostsConfigTests.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/ExampleTests/UtilTimeTests.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/MainTests.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/PostTests.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/PostsConfigTests.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/PostsViewTests.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/SimulatedEffect.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/TestData.elm', '/home/afra/utcn/anul3/pf/Elm-Project/tests/TestUtils.elm']),
 		processes: 12,
-		report: $author$project$Test$Reporter$Reporter$ConsoleReport($author$project$Console$Text$UseColor),
+		report: $author$project$Test$Reporter$Reporter$JsonReport,
 		runs: 100,
-		seed: 242691224032385
+		seed: 376158560164992
 	},
 	_List_fromArray(
 		[
@@ -25146,7 +25159,7 @@ var $author$project$Test$Generated$Main$main = A2(
 _Platform_export({'Test':{'Generated':{'Main':{'init':$author$project$Test$Generated$Main$main($elm$json$Json$Decode$int)(0)}}}});}(this));
 return this.Elm;
 })({});
-var pipeFilename = "/tmp/elm_test-552530.sock";
+var pipeFilename = "/tmp/elm_test-608810.sock";
 var net = require('net'),
   client = net.createConnection(pipeFilename);
 

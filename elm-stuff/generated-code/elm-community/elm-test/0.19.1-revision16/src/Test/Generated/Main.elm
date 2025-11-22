@@ -21,8 +21,8 @@ main : Test.Runner.Node.TestProgram
 main =
     Test.Runner.Node.run
         { runs = 100
-        , report = ConsoleReport UseColor
-        , seed = 242691224032385
+        , report = JsonReport
+        , seed = 376158560164992
         , processes = 12
         , globs =
             []

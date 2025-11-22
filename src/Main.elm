@@ -4,7 +4,7 @@ import Browser
 import Dict exposing (update)
 import Effect exposing (Effect, performEffect)
 import Html exposing (Html, button, div, input, select, text)
-import Html.Attributes exposing (href, type_)
+import Html.Attributes exposing (href, style, type_)
 import Model exposing (AppState(..), Config, LoadingPostsState, Mode(..), Model, Msg(..))
 import Model.Post as Post
 import Model.PostIds as PostIds exposing (HackerNewsItem(..))
@@ -191,6 +191,12 @@ view model =
                 Model.LoadingPosts { currentId } ->
                     div [] [ text <| "Loading post " ++ String.fromInt currentId ]
 
+                -- Model.LoadingPosts { currentId, posts } ->
+                --     div []
+                --         [ text <| "Fetching post " ++ String.fromInt (List.length posts + 1) ++ "/50"
+                --         , div [ style "font-size" "0.8em", style "color" "#888" ]
+                --             [ text <| "(ID: " ++ String.fromInt currentId ++ ")" ]
+                --         ]
                 _ ->
                     div [] [ text "Other" ]
     in
