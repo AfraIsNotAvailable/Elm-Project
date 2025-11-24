@@ -7,4 +7,4 @@ import Main
 
 
 main =
-    Main.reactorMain
+    Main.main
